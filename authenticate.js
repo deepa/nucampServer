@@ -35,3 +35,12 @@ exports.jwtPassport = passport.use(
 );
 
 exports.verifyUser = passport.authenticate('jwt', { session: false });
+
+exports.verifyAdmin = (req, res, next) => {
+  if (req.user.admin) {
+    return next();
+  } else {
+    res.statusCode = 403;
+    res.end('This operation is only  allowed for admin users');
+  }
+};
